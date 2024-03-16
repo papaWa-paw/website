@@ -13,3 +13,24 @@ header {
     height: 48px;
     width: 48px;
 }
+
+/* MODAL */
+.modal_box {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 99999;
+    background-color: rgba(0, 0, 0, .5);
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-dialog {
+    width: 400px;
+    background: #fff;
+    border-radius: 5%;
+}
+
