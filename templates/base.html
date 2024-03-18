@@ -10,7 +10,6 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       <div class="co1l-md-3 mb-2 mb-md-0">
         <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
@@ -27,7 +26,6 @@
         <a href="{{ url_for('sign_in') }}" class="btn btn-outline-primary me-2">войти</a>
           <a href="{{ url_for('registration') }}" class="btn btn-primary">зарегистрироваться</a>
     </header>
-  </div>
     {% block body %}{% endblock%}
 </body>
 </html>
