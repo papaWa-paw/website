@@ -15,6 +15,11 @@ def about():
     return render_template('about.html')
 
 
+@app.route('/sign_in')
+def sign_in():
+    return render_template('sign_in.html')
+
+
 if __name__ == '__main__':
     db_session.global_init("db/blogs.db")
     app.run(debug=True)
