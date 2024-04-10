@@ -34,3 +34,12 @@ header {
     border-radius: 5%;
 }
 
+/* BODY*/
+.px-3 {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    right: 25%;
+    text-align: center
+}
+
