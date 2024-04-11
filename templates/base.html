@@ -10,21 +10,23 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       <div class="co1l-md-3 mb-2 mb-md-0">
         <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img class='header__img' src="{{url_for('static', filename='img/icon.png')}}" alt="law">
+            <img onclick="{{ url_for('index') }}" class='header__img' src="{{url_for('static', filename='img/icon.png')}}" alt="law">
         </a>
       </div>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="{{ url_for('index') }}" class="nav-link px-2 link-secondary">главная</a></li>
-        <li><a href="{{ url_for('about') }}" class="nav-link px-2">о нас</a></li>
+        <li><a href="{{ url_for('about') }}" class="nav-link px-2 link-body-emphasis">рецепты</a></li>
       </ul>
 
       <div class="col-md-3 text-end">
-        <a href="{{ url_for('sign_in') }}" class="btn btn-outline-primary me-2">войти</a>
-          <a href="{{ url_for('registration') }}" class="btn btn-primary">зарегистрироваться</a>
+          <a href="{{ url_for('sign_in') }}" class="btn btn-light border-grey text-dark me-2">войти</a>
+          <a href="{{ url_for('registration') }}" class="btn btn-light border-black text-dark me-2">зарегистрироваться</a>
+      </div>
     </header>
     {% block body %}{% endblock%}
 </body>
