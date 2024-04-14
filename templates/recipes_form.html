@@ -5,7 +5,9 @@ GG
 {% endblock %}
 
 {% block body %}
-<main class="formik">
+<nav>
+        {% if current_user.is_authenticated %}
+        <main class="formik">
     <div class="py-5 text-center">
       <h2>Загрузи свой рецепт!</h2>
       <p class="lead">Заполните форму по подсказкам и нажимите кнопку "выложить".</p>
@@ -170,4 +172,12 @@ GG
       </div>
     </div>
   </main>
+    {% else %}
+    <div class="pz">
+      <h2>Пожалуйста, войдите в аккаунт.</h2>
+      <a href="/sign_in" class="btn btn-lg btn-light fw-bold border-black bg-white">войти</a>
+    </div>
+    {% endif %}
+    </nav>
+
 {% endblock %}
