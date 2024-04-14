@@ -4,7 +4,7 @@ header {
     position: sticky;
     top: 0;
     padding: 20px;
-    background: #f5f5dc;
+    background: #f5f3da;
     -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
         box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
 }
@@ -16,6 +16,7 @@ header {
 
 }
 
+}
 /* MODAL */
 .modal_box {
     position: fixed;
@@ -47,7 +48,7 @@ header {
     top: 40%;
     left: 25%;
     right: 25%;
-    text-align: center
+    text-align: center;
 }
 
 .formik {
@@ -56,3 +57,10 @@ header {
     right: 5%;
 }
 
+.pz {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    right: 25%;
+    text-align: center;
+}
