@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, login_required, logout_user
 from data import db_session
 from forms.loginform import LoginForm
 from data.users import User
@@ -70,6 +70,13 @@ def recipes_form():
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
 
 
 if __name__ == '__main__':
