@@ -1,8 +1,10 @@
 from flask import Flask, render_template, redirect
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data import db_session
+from data.recipes import Recipes
 from forms.loginform import LoginForm
 from data.users import User
+from forms.resform import RecipesForm
 from forms.user import RegisterForm
 
 app = Flask(__name__)
@@ -61,11 +63,6 @@ def sign_in():
     return render_template('sign_in.html', title='Авторизация', form=form)
 
 
-@app.route('/recipes_form')
-def recipes_form():
-    return render_template('recipes_form.html')
-
-
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -82,6 +79,26 @@ def logout():
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
+
+
+@app.route('/recipes_form',  methods=['GET', 'POST'])
+@login_required
+def recipes_form():
+    form = RecipesForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        news = Recipes()
+        news.title = form.title.data
+        news.description = form.description.data
+        news.ingredients = form.ingredients.data
+        news.cooking = form.cooking.data
+        news.type = form.type.data
+        current_user.news.append(news)
+        db_sess.merge(current_user)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('recipes_form.html', title='Добавление новости',
+                           form=form)
 
 
 if __name__ == '__main__':
