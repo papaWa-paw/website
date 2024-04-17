@@ -6,7 +6,32 @@ GG
 
 {% block body %}
 <nav>
-        {% if current_user.is_authenticated %}
+  {% if current_user.is_authenticated %}
+
+  <h1>Добавление новости</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(class="form-control") }}<br>
+        {% for error in form.title.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    <p>
+        {{ form.description.label }}<br>
+        {{ form.description(class="form-control") }}<br>
+        {% for error in form.description.errors %}
+            <p content="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+
+
         <main class="formik">
     <div class="py-5 text-center">
       <h2>Загрузи свой рецепт!</h2>
@@ -75,7 +100,7 @@ GG
 
           </div>
           <div>
-            <button class="btn btn-light border-black text-dark me-2" type="submit">загрузить фото блюда</button>
+            <input type="file" class="form-control-file" id="photo" name="file">
           </div>
           <hr class="my-4">
           <button class="w-100 btn btn-dark btn-lg" type="submit">выложить</button>
