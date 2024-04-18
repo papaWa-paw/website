@@ -10,8 +10,13 @@ LOL
     <h1>В чём смысл?</h1>
     <p class="lead">На этом сайте ты найдёшь различные рецепты, подаренные тебе другими пользователями. Подари и ты им свой уникальный рецепт! Если ты зарегестрирован, то жми кнопку снизу.</p>
     <p class="lead">
-      <a href="{{ url_for('recipes_form') }}" class="btn btn-lg btn-light fw-bold border-black bg-white">создать</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('recipes_form') }}" class="btn btn-lg btn-light fw-bold border-black bg-white">создать</a>
+        {% else %}
+            <a href="{{ url_for('registration') }}" class="btn btn-lg btn-light fw-bold border-black bg-white">создать</a>
+        {% endif %}
     </p>
   </main>
 </div>
+
 {% endblock %}
