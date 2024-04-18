@@ -12,4 +12,4 @@ class RecipesForm(FlaskForm):
     cooking = TextAreaField()
     type = StringField(validators=[DataRequired()])
     picture = FileField(validators=[FileAllowed(['png', 'jpg'])])
-    submit = SubmitField()
+    submit = SubmitField('создать')
