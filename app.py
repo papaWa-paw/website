@@ -93,8 +93,8 @@ def recipes_form():
         news.ingredients = form.ingredients.data
         news.cooking = form.cooking.data
         news.type = form.type.data
-        current_user.news.append(news)
         db_sess.merge(current_user)
+        db_sess.add(news)
         db_sess.commit()
         return redirect('/')
     return render_template('recipes_form.html', title='Добавление новости', form=form)
@@ -125,7 +125,7 @@ def edit_news(id):
             news.cooking = form.cooking.data
             news.type = form.type.data
             db_sess.commit()
-            return redirect('/')
+            return redirect('/index')
         else:
             abort(404)
     return render_template('recipes_form.html', title='Редактирование рецепта', form=form)
