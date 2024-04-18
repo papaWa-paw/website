@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request, abort
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data import db_session
 from data.recipes import Recipes
@@ -95,10 +95,41 @@ def recipes_form():
         news.type = form.type.data
         current_user.news.append(news)
         db_sess.merge(current_user)
+        db_sess.add(news)
         db_sess.commit()
         return redirect('/')
-    return render_template('recipes_form.html', title='Добавление новости',
-                           form=form)
+    return render_template('recipes_form.html', title='Добавление новости', form=form)
+
+
+@app.route('/recipes_form/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_news(id):
+    form = RecipesForm()
+    if request.method == "GET":
+        db_sess = db_session.create_session()
+        news = db_sess.query(Recipes).filter(Recipes.id == id, Recipes.user == current_user).first()
+        if news:
+            form.title.data = news.title
+            news.description = form.description.data
+            news.ingredients = form.ingredients.data
+            news.cooking = form.cooking.data
+            news.type = form.type.data
+        else:
+            abort(404)
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        news = db_sess.query(Recipes).filter(Recipes.id == id, Recipes.user == current_user).first()
+        if news:
+            news.title = form.title.data
+            news.description = form.description.data
+            news.ingredients = form.ingredients.data
+            news.cooking = form.cooking.data
+            news.type = form.type.data
+            db_sess.commit()
+            return redirect('/')
+        else:
+            abort(404)
+    return render_template('recipes_form.html', title='Редактирование рецепта', form=form)
 
 
 if __name__ == '__main__':
