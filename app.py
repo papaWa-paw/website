@@ -95,7 +95,6 @@ def recipes_form():
         news.type = form.type.data
         current_user.news.append(news)
         db_sess.merge(current_user)
-        db_sess.add(news)
         db_sess.commit()
         return redirect('/')
     return render_template('recipes_form.html', title='Добавление новости', form=form)
