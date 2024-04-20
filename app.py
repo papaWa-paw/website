@@ -21,7 +21,9 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    db_sess = db_session.create_session()
+    recipe = db_sess.query(Recipes).all()
+    return render_template('about.html', recipes=recipe)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
