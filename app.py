@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, abort
+from flask import Flask, render_template, redirect, request, abort, flash, url_for, make_response
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data import db_session
 from data.recipes import Recipes
@@ -7,11 +7,21 @@ from data.users import User
 from forms.resform import RecipesForm
 from forms.user import RegisterForm
 
+UPLOAD_FOLDER = 'static/img/'
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/')
@@ -24,6 +34,13 @@ def about():
     db_sess = db_session.create_session()
     recipe = db_sess.query(Recipes).all()
     return render_template('about.html', recipes=recipe)
+
+
+@app.route('/about/more')
+def about_more():
+    db_sess = db_session.create_session()
+    recipe = db_sess.query(Recipes).all()
+    return render_template('about_more.html', recipes=recipe)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -78,11 +95,6 @@ def logout():
     return redirect("/")
 
 
-@app.route('/profile')
-def profile():
-    return render_template('profile.html')
-
-
 @app.route('/recipes_form',  methods=['GET', 'POST'])
 @login_required
 def recipes_form():
@@ -131,6 +143,29 @@ def edit_news(id):
         else:
             abort(404)
     return render_template('recipes_form.html', title='Редактирование рецепта', form=form)
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template("profile.html")
+
+
+@app.route('/userava')
+@login_required
+def userava():
+    img = None
+    if not current_user.avatar:
+        try:
+            with app.open_resource(app.root_path + url_for('static', filename='img/default.png'), "rb") as f:
+                img = f.read()
+        except FileNotFoundError as e:
+            print("Не найден аватар по умолчанию: " + str(e))
+    else:
+        img = current_user.avatar
+    h = make_response(img)
+    h.headers['Content-Type'] = 'image/png'
+    return h
 
 
 if __name__ == '__main__':
