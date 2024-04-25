@@ -2,7 +2,6 @@ import datetime
 import sqlalchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 
@@ -14,9 +13,13 @@ class User(SqlAlchemyBase, UserMixin):
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    avatar = sqlalchemy.Column(sqlalchemy.BLOB, nullable=True)
+
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
-    recipe = orm.relationship("Recipes", back_populates='user')
+    likes = orm.relationship("Likes", back_populates='users')
+
+    recipes = orm.relationship("Recipes", back_populates='users')
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
