@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, abort, flash, url_for, make_response
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data import db_session
+from data.likes import Likes
 from data.recipes import Recipes
 from forms.loginform import LoginForm
 from data.users import User
@@ -34,6 +35,23 @@ def about():
     db_sess = db_session.create_session()
     recipe = db_sess.query(Recipes).all()
     return render_template('about.html', recipes=recipe)
+
+
+@app.route('/about/like/<int:id>', methods=['GET', 'POST'])
+@login_required
+def about_like(id):
+    db_sess = db_session.create_session()
+    news = db_sess.query(Recipes).filter(Recipes.id == id).first()
+    nolike = db_sess.query(Likes).filter(Likes.recipe_id == news.id, Likes.user_id == current_user.id).all()
+    yelike = db_sess.query(Likes).filter(Likes.recipe_id == news.id, Likes.user_id == current_user.id).first()
+    like = Likes(recipe_id=news.id, user_id=current_user.id)
+    if news and not nolike:
+        db_sess.add(like)
+        db_sess.commit()
+    else:
+        db_sess.delete(db_sess.query(Likes).filter(Likes.id == yelike.id).first())
+        db_sess.commit()
+    return redirect('/about')
 
 
 @app.route('/about/more')
@@ -112,37 +130,6 @@ def recipes_form():
         db_sess.commit()
         return redirect('/')
     return render_template('recipes_form.html', title='Добавление новости', form=form)
-
-
-@app.route('/recipes_form/<int:id>', methods=['GET', 'POST'])
-@login_required
-def edit_news(id):
-    form = RecipesForm()
-    if request.method == "GET":
-        db_sess = db_session.create_session()
-        news = db_sess.query(Recipes).filter(Recipes.id == id, Recipes.user == current_user).first()
-        if news:
-            form.title.data = news.title
-            news.description = form.description.data
-            news.ingredients = form.ingredients.data
-            news.cooking = form.cooking.data
-            news.type = form.type.data
-        else:
-            abort(404)
-    if form.validate_on_submit():
-        db_sess = db_session.create_session()
-        news = db_sess.query(Recipes).filter(Recipes.id == id, Recipes.user == current_user).first()
-        if news:
-            news.title = form.title.data
-            news.description = form.description.data
-            news.ingredients = form.ingredients.data
-            news.cooking = form.cooking.data
-            news.type = form.type.data
-            db_sess.commit()
-            return redirect('/index')
-        else:
-            abort(404)
-    return render_template('recipes_form.html', title='Редактирование рецепта', form=form)
 
 
 @app.route('/profile')
