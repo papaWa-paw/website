@@ -90,3 +90,166 @@ body {
 .title .seperator {
   margin: 0 auto 10px;
 }
+
+.item {
+  position: relative;
+  margin-bottom: 30px;
+  min-height: 1px;
+  -webkit-box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+  -webkit-backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.item .item-in {
+  background: #fff;
+  padding: 40px;
+  position: relative;
+}
+.item .item-in:hover:before {
+  width: 100%;
+}
+.item .item-in::before {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  height: 2px;
+  width: 0%;
+  background: #333333;
+  right: 0px;
+  -webkit-transition: width 0.4s;
+  transition: width 0.4s;
+}
+
+.item h4 {
+  font-size: 18px;
+  margin-top: 25px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.item p {
+  font-size: 14px;
+}
+.item a {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #666666;
+  margin-top: 10px;
+}
+.item a i {
+  opacity: 0;
+  padding-left: 0px;
+  transition: 0.4s;
+  font-size: 24px;
+  display: inline-block;
+  top: 5px;
+  position: relative;
+}
+.item a:hover {
+  text-decoration: none;
+}
+.item a:hover i {
+  padding-left: 10px;
+  opacity: 1;
+  font-weight: 300;
+}
+
+.container {
+    position: absolute;
+    top: 24%;
+    left: 5%;
+    right: 5%;
+}
+
+.container2{
+    position: absolute;
+    top: 65%;
+    left: 3%;
+    right: 5%
+}
+
+.proftext{
+    position: absolute;
+    top: 60%;
+    right: 5%;
+}
+
+
+.profile-ava {
+	width: 230px;
+	text-align: center;
+	overflow: hidden;
+	background: #F5F5F5;
+	padding: 10px;
+	border-radius: 10%;
+}
+.profile-ava img {max-width: 150px; height: auto;}
+
+.profile-load {
+	margin-top: 10px;
+	margin-left: 40px;
+	overflow: hidden;
+	max-width: 145px;
+}
+.profile-load input[type=submit], input[type=file] {
+	width: 100%;
+	font-size: 18px;
+}
+.profile-load p {
+	padding: 0;
+	margin: 5px 0 0 0;
+}
+
+.profile-panel {padding: 0 0 0 10px;}
+ul.profile-info {
+	list-style: none;
+	margin: 10px 0 0 0;
+	padding: 0;
+	color: #747474;
+}
+ul.profile-info li {margin-top: 10px;}
+
+.prof {
+    position: absolute;
+    right: 12%;
+}
+
+
+.main {
+ background-color: #f2f2f2;
+ padding: 20px;
+-webkit-border-radius: 4px;
+ -moz-border-radius: 4px;
+ -ms-border-radius: 4px;
+ -o-border-radius: 4px;
+ border-radius: 4px;
+ border-bottom: 4px solid #ddd;
+}
+.real-estates-detail #author img {
+ -webkit-border-radius: 100%;
+ -moz-border-radius: 100%;
+ -ms-border-radius: 100%;
+ -o-border-radius: 100%;
+ border-radius: 100%;
+ border: 5px solid #ecf0f1;
+ margin-bottom: 10px;
+}
+.real-estates-detail .sosmed-author i.fa {
+ width: 30px;
+ height: 30px;
+ border: 2px solid #bdc3c7;
+ color: #bdc3c7;
+ padding-top: 6px;
+ margin-top: 10px;
+}
+.panel-default .panel-heading {
+ background-color: #fff;
+}
+.real-estates-detail .slides li img {
+ height: 450px;
+}
