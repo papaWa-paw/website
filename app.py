@@ -54,11 +54,11 @@ def about_like(id):
     return redirect('/about')
 
 
-@app.route('/about/more')
-def about_more():
+@app.route('/about/more/<int:id>')
+def about_more(id):
     db_sess = db_session.create_session()
-    recipe = db_sess.query(Recipes).all()
-    return render_template('about_more.html', recipes=recipe)
+    recipe = db_sess.query(Recipes).filter(Recipes.id == id).first()
+    return render_template('about_more.html', recipe=recipe)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -135,7 +135,13 @@ def recipes_form():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html")
+    recipes = []
+    db_sess = db_session.create_session()
+    likes = db_sess.query(Likes).filter(Likes.user_id == current_user.id).all()
+    for like in likes:
+        if db_sess.query(Recipes).filter(Recipes.id == like.recipe_id).first():
+            recipes.append(db_sess.query(Recipes).filter(Recipes.id == like.recipe_id).first())
+    return render_template("profile.html", recipes=recipes)
 
 
 @app.route('/userava')
