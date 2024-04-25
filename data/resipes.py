@@ -16,4 +16,5 @@ class Recipes(SqlAlchemyBase):
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
-    user = orm.relationship('User')
+    users = orm.relationship('User', back_populates='recipes')
+    likes = orm.relationship('Likes', back_populates='recipes')
