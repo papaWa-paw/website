@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, abort, flash, url_for, make_response
+from flask import Flask, render_template, redirect, url_for, make_response
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from data import db_session
 from data.likes import Likes
@@ -58,7 +58,8 @@ def about_like(id):
 def about_more(id):
     db_sess = db_session.create_session()
     recipe = db_sess.query(Recipes).filter(Recipes.id == id).first()
-    return render_template('about_more.html', recipe=recipe)
+    author = db_sess.query(User).filter(User.id == recipe.user_id).first()
+    return render_template('about_more.html', recipe=recipe, author=author)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
