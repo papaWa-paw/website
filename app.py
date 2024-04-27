@@ -37,6 +37,17 @@ def about():
     return render_template('about.html', recipes=recipe)
 
 
+@app.route('/my_recipes')
+@login_required
+def my_recipes():
+    recipes = []
+    db_sess = db_session.create_session()
+    likes = db_sess.query(Recipes).filter(Recipes.user_id == current_user.id).all()
+    for like in likes:
+        recipes.append(like)
+    return render_template("profile.html", recipes=recipes)
+
+
 @app.route('/about/like/<int:id>', methods=['GET', 'POST'])
 @login_required
 def about_like(id):
@@ -59,7 +70,7 @@ def about_more(id):
     db_sess = db_session.create_session()
     recipe = db_sess.query(Recipes).filter(Recipes.id == id).first()
     author = db_sess.query(User).filter(User.id == recipe.user_id).first()
-    return render_template('about_more.html', recipe=recipe, author=author)
+    return render_template('about_more.html', author=author, recipe=recipe)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -126,6 +137,7 @@ def recipes_form():
         news.ingredients = form.ingredients.data
         news.cooking = form.cooking.data
         news.type = form.type.data
+        news.user_id = current_user.id
         db_sess.merge(current_user)
         db_sess.add(news)
         db_sess.commit()
