@@ -10,7 +10,9 @@ GG
   {% for recipe in recipes %}
   <div class="col-md-6 item">
         <div class="item-in">
-            <a href="/about/like/{{ recipe.id }}" class="btn btn-info rounded-pill px-3">like</a>
+            <div class="heart">
+            <a href="/about/like/{{ recipe.id }}" class="btn btn-light rounded-pill px-3 border-black">❤</a>
+            </div>
           <h4>{{ recipe.title }}</h4>
           <div class="seperator"></div>
           <p>{{ recipe.description[:60] + '...' }}</p>
