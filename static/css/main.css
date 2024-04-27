@@ -168,16 +168,11 @@ body {
 
 .container2{
     position: absolute;
-    top: 65%;
+    top: 70%;
     left: 3%;
     right: 5%
 }
 
-.proftext{
-    position: absolute;
-    top: 60%;
-    right: 5%;
-}
 
 
 .profile-ava {
@@ -219,22 +214,55 @@ ul.profile-info li {margin-top: 10px;}
     right: 12%;
 }
 
+.title_more {
+    position: absolute;
+    top: 20%;
+    left: 3%;
+    text-align: center;
+}
+
 .ingr {
     background-color: #cfd8b2;
     border-radius: 3%;
 }
 
+.cooking {
+    position: absolute;
+    top: 65%;
+    left: 2%;
+    right: 40%;
+}
+
 .ingredient {
     position: absolute;
-    top: 40%;
+    left: 70%;
+    top: 27%;
 }
 
 .description {
     position: absolute;
     right: 65%;
+    left: 5%;
+    top: 36%;
+    background: #E4E9D4;
 }
 
-.cooking {
+.heart {
+     position: absolute;
+     left: 75%;
+     right: 5%;
+     top: 5%
+}
+
+.recipe-info {
     position: absolute;
-    left: 70%
+    top: 29%;
+    left: 3%;
+}
+
+.per {
+    position: absolute;
+    top: 63%;
+    background-color: #F5F5F5;
+    width: 100%;
 }
