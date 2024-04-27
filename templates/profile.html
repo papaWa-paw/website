@@ -25,14 +25,23 @@ GG
 		</ul>
 	</td></tr>
 
-	<h2 class="proftext">Избранные рецепты:</h2>
+	<div class="per">
+	<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{ url_for('profile') }}" class="nav-link px-2 link-secondary">избранные рецепты</a></li>
+        <li><a href="{{ url_for('my_recipes') }}" class="nav-link px-2 link-body-emphasis">мои рецепты</a></li>
+	</ul>
+	</div>
+
+
 
 	<div class="container2">
 	<div class="row">
 	  {% for recipe in recipes %}
 	  <div class="col-md-6 item">
 			<div class="item-in">
-				<a href="/about/like/{{ recipe.id }}" class="btn btn-info rounded-pill px-3">like</a>
+				<div class="heart">
+            	<a href="/about/like/{{ recipe.id }}" class="btn btn-light rounded-pill px-3 border-black">❤</a>
+            	</div>
 			  <h4>{{ recipe.title }}</h4>
 			  <div class="seperator"></div>
 			  <p>{{ recipe.description[:60] + '...' }}</p>
