@@ -7,12 +7,13 @@ GG
 {% block body %}
 <div>
   <h2 class="title_more">{{ recipe.title }}</h2>
-	<div class="author">
-		<h1>{{ author.name }}</h1>
-	</div>
+	<ul class="recipe-info">
+		<li>Автор рецепта: {{ author.name }}</li>
+	</ul>
+
 	<div class="ingredient">
 	  <table class="ingr">
-		  <span class="prod"><h4><em>Продукты</em></h4></span>
+		  <span class="prod"><h4><em>Ингредиенты</em></h4></span>
 		  <hr class="my-4" width="200px">
 		  <div class="ingr">
 		  {%  for i in recipe.ingredients.split('\r\n') %}
